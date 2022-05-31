@@ -8,9 +8,9 @@ import { fetchEntries, fetchEntry } from "../../contentful/utils";
 import { Posts } from "../../contentful/utils";
 import Style from "./blogPost.module.scss";
 import { Post, PostsContext } from "../../context/state";
-import remark from "remark";
 import html from "remark-html";
-// import prism from "remark-prism";
+import prism from "remark-prism";
+import { remark } from "remark";
 
 const Blog = ({ postData }: { postData: Posts }) => {
   const { title, video, tags, date, tableOfContents, contentPost, author } =
@@ -38,9 +38,9 @@ const Blog = ({ postData }: { postData: Posts }) => {
     }
 
     remark()
+      // .use(prism)
       .use(html)
       .process(data)
-      // .use(require('remark-prism'))
       .then((data) => {
         setContent(data.toString());
       });
