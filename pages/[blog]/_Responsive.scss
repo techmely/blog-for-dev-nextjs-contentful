@@ -1,0 +1,34 @@
+@media only screen and (max-width: 1024px) {
+    .content-article__main {
+        flex-direction: column;
+    }
+
+    .post-info {
+        .post-title {
+            font-size: var(--sp-text-md);
+        }
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    & {
+        padding: 0;
+    }
+
+    .sidebar {
+        .title {
+            margin-top: 10px;
+        }
+    }
+}
+@media only screen and (max-width: 425px) {
+    .post-info {
+        .post-title {
+            font-size: 22px;
+        }
+    }
+
+    .content {
+        padding: 2rem !important;
+    }
+}

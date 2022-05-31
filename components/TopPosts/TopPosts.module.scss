@@ -1,0 +1,30 @@
+.top-posts {
+    counter-reset: cnt;
+
+    .post.cnt {
+        margin-bottom: 2rem;
+        .summary,
+        .tags {
+            padding-left: 2.5rem;
+        }
+        &:not(:first-child) {
+            .title {
+                margin-bottom: 0;
+            }
+        }
+        .title {
+            position: relative;
+            display: flex;
+            &::before {
+                line-height: 1.6;
+                font-size: 1.4rem;
+                flex-shrink: 0;
+                font-weight: normal;
+                opacity: 0.5;
+                width: 2.5rem;
+                counter-increment: cnt;
+                content: '0' counter(cnt);
+            }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+.category-section {
+  flex-grow: 1;
+  .posts {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+  }
+  .post {
+    width: calc(50% - 3rem);
+    margin: 0 15px 3rem;
+    box-shadow: 0 0 20px rgba(117, 115, 115, 0.1);
+    border-radius: 10px;
+    padding: 2rem;
+    transition: all 0.2 linear;
+    &:hover {
+      box-shadow: 0 0 17px rgba(27, 26, 26, 0.1);
+    }
+  }
+
+  @import "./Responsive";
+}

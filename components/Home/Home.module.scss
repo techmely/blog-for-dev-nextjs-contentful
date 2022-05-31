@@ -1,0 +1,35 @@
+.homepage {
+    > .title {
+        color: var(--color-secondary);
+        font-size: 1.6rem;
+        margin-bottom: 2rem;
+    }
+    .article-ads {
+        margin-bottom: 4rem;
+    }
+    .posts {
+        display: flex;
+        margin: 0 -1rem;
+        flex-wrap: wrap;
+        .post {
+            margin: 0 1rem 3rem;
+            width: calc(33.333% - 2rem);
+        }
+    }
+
+    .button {
+        padding: 3rem;
+        text-align: center;
+        a {
+            background-color: #0b57cf;
+            border-radius: 3px;
+            color: #fff;
+            padding: 10px 13px;
+            font-size: 14px;
+            &:hover {
+                background-color: #1552b4;
+            }
+        }
+    }
+    @import './Responsive';
+}

@@ -1,0 +1,32 @@
+@media screen and (max-width: 1024px) {
+    & {
+        padding: 0;
+    }
+    .article-section {
+        display: block;
+        &__main {
+            padding: 2rem;
+        }
+    }
+}
+@media screen and (max-width: 625px) {
+    .article .content {
+        padding-top: 1rem !important;
+        padding-left: 0;
+    }
+    .article-section {
+        .posts {
+            .article {
+                flex-direction: column;
+                margin: 0;
+                margin-bottom: 3rem;
+                .image-wrapper {
+                    width: 100% !important;
+                }
+                .content {
+                    padding-left: 0;
+                }
+            }
+        }
+    }
+}

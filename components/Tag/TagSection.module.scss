@@ -1,0 +1,57 @@
+.tag-section {
+    padding: 3rem;
+    min-height: 90vh;
+    flex-grow: 1;
+
+    ul {
+        align-items: flex-end;
+    }
+    li {
+        display: inline-block;
+        list-style: none;
+        padding: 1rem;
+        a {
+            line-height: 1;
+            font-size: 24px;
+            color: rgb(29, 81, 177);
+            transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+            &:hover {
+                color: rgba(29, 81, 177, 0.8);
+            }
+        }
+        .tag-1 {
+            font-size: 24px;
+        }
+        .tag-2 {
+            font-size: 32px;
+        }
+        .tag-3 {
+            font-size: 48px;
+        }
+        .tag-4 {
+            font-size: 48px;
+            color: rgb(17, 43, 92);
+        }
+    }
+
+    @media only screen and (max-width: 992px) {
+        & {
+            padding: 0;
+        }
+        li {
+            .tag-1 {
+                font-size: 22px;
+            }
+            .tag-2 {
+                font-size: 30px;
+            }
+            .tag-3 {
+                font-size: 36px;
+            }
+            .tag-4 {
+                font-size: 40px;
+                color: rgb(17, 43, 92);
+            }
+        }
+    }
+}

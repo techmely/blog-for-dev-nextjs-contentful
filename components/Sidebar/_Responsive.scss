@@ -1,0 +1,20 @@
+@media only screen and (max-width: 1024px) {
+    & {
+        flex: 0 0 300px;
+    }
+}
+@media only screen and (max-width: 992px) {
+    & {
+        flex: 0 1 auto;
+        margin-top: 3rem;
+        margin-left: 0;
+        .yt-container {
+            max-width: 512px;
+            margin: 0 auto;
+            .container {
+                height: auto;
+                aspect-ratio: 16/9;
+            }
+        }
+    }
+}

@@ -1,0 +1,19 @@
+@media screen and (max-width: 1200px) {
+    .posts {
+        margin: 0 -1.5rem;
+        .post {
+            width: calc(50% - 3rem);
+            margin: 0 1.5rem 3rem;
+        }
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .posts {
+        margin: 0;
+        .post {
+            width: 100%;
+            margin: 0 0 3rem;
+        }
+    }
+}

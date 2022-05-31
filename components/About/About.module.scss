@@ -1,0 +1,15 @@
+.about-section {
+    font-weight: var(--font-weight-md);
+    font-size: 1.8rem;
+
+    h1 {
+        color: var(--color-secondary);
+    }
+    b {
+        font-family: var(--font-family-three);
+    }
+    p {
+        line-height: 1.7;
+        margin-bottom: var(--sp-text-md);
+    }
+}

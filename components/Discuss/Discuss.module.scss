@@ -1,0 +1,71 @@
+.discuss-section {
+  flex-grow: 1;
+  .header-title {
+    font-family: var(--font-family-two);
+    font-size: 2.2rem;
+    color: var(--color-secondary);
+    font-weight: 700;
+  }
+  .image {
+    a {
+      display: block;
+      aspect-ratio: 16/9;
+      position: relative;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .group-info {
+    margin-top: var(--spacing-3);
+  }
+  .footer-content {
+    padding: var(--spacing-2);
+  }
+  .group {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    .name {
+      font-family: var(--font-family-three);
+      color: var(--color-primary);
+    }
+    .icon {
+      display: flex;
+      align-items: center;
+      svg {
+        margin-right: var(--spacing-1);
+      }
+    }
+  }
+  .join-link {
+    text-align: center;
+    margin-top: var(--spacing-1);
+    a {
+      color: var(--color-muted);
+      border-bottom: 8px solid var(--color-secondary);
+      display: inline-block;
+    }
+    a:hover {
+      color: var(--color-secondary);
+    }
+  }
+  .page-info {
+    padding: 1.25rem 2rem;
+    margin-top: var(--spacing-3);
+    background-color: rgb(255, 221, 221);
+    color: var(--color-secondary);
+    font-size: 1.8rem;
+
+    p {
+      margin-bottom: 1rem;
+    }
+    .link {
+      color: var(--color-secondary);
+    }
+  }
+
+  @import "./Responsive";
+}

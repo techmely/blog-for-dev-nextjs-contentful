@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600;900&family=Nunito:wght@400;700;900&family=Itim&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --font-size-md: 1.6rem;
+  --font-size-sm: 1.4rem;
+  --font-size-lg: 3.2rem;
+
+  --font-family-one: "Nunito", sans-serif;
+  --font-family-two: "Montserrat", sans-serif;
+  --font-family-three: "Itim", cursive;
+
+  --font-weight-sm: 400;
+  --font-weight-md: 500;
+  --font-weight-700: 700;
+  --font-weight-lg: 900;
+
+  --color-white: #fff;
+  --color-primary: #4433ff;
+  --color-secondary: #e60067;
+  --color-background: #eef0f1;
+  --color-dark: #171e31;
+  --color-muted: #6c757d;
+  --color-button-1: #1cb152;
+  --color-boxShadow: #ffc4c4;
+  --color-icon: #9d7d67;
+  --color-border-1: #bfbfbf;
+  --color-border-2: #e3e5e7;
+
+  --height-nav: 6rem;
+  --spacing-3: 3rem;
+  --spacing-2: 2rem;
+  --spacing-1: 1rem;
+  --sp-text-lg: 4.8rem;
+  --sp-text-md: 3.2rem;
+  --sp-text-sm: 1.2rem;
+}
+a {
+  text-decoration: none;
+}
+html {
+  font-size: 62.5%;
+  font-family: var(--font-family-one);
+}
+body {
+  font-size: var(--font-size-md);
+  background-color: #fff;
+  font-weight: var(--font-weight-md);
+}
+html,
+body {
+  width: 100%;
+}
+
+@import "./utilities";

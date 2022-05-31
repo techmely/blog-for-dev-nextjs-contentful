@@ -1,0 +1,18 @@
+.social-box {
+    margin-left: auto;
+    .socials {
+        display: flex;
+        line-height: 0;
+        align-items: center;
+    }
+    .social {
+        &:not(:last-child) {
+            padding-right: var(--spacing-2);
+        }
+        svg {
+            width: var(--spacing-2);
+            height: var(--spacing-2);
+        }
+        color: var(--color-primary);
+    }
+}

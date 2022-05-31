@@ -1,0 +1,63 @@
+.bio-section {
+  padding: 3rem 0;
+  width: 100%;
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .profile-image {
+    overflow: hidden;
+    border-radius: 50%;
+    width: 18rem;
+    position: relative;
+    height: 18rem;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .title {
+    font-size: 3.4rem;
+    font-family: var(--font-family-three);
+    font-weight: var(--font-weight-lg);
+    text-align: center;
+    color: var(--color-secondary);
+    @media (max-width: 425px) {
+      font-size: var(--fontsize-md);
+    }
+  }
+  .summary {
+    color: var(--dark-color);
+    margin-top: var(--spacing-3);
+    p {
+      font-size: 2rem;
+      margin-top: var(--spacing-2);
+    }
+  }
+  .social-box {
+    margin-top: var(--spacing-2);
+    text-align: center;
+    a {
+      margin-top: 1rem;
+      color: #000;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      &:not(:last-child) {
+        margin-right: 1.6rem;
+      }
+      padding: 1rem 2rem;
+      display: inline-block;
+      border-radius: 15px 30px / 20px 6px 18px;
+      background-color: #e5efff;
+      box-shadow: 0 2px 5px #00000010;
+
+      &:hover {
+        box-shadow: none;
+      }
+    }
+  }
+}

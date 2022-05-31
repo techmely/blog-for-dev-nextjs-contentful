@@ -1,0 +1,62 @@
+.gatsby-highlight {
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 8rem;
+  margin-top: var(--sp-text-lg);
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+  background-color: var(--color-dark);
+}
+code.language-text {
+  border-radius: 0;
+  font-size: var(--fontsize-md);
+  padding: 0px 7px !important;
+  background-color: #f8f9fa;
+  border: 1px solid #d2d3d7;
+  color: var(--color-dark);
+  font-family: var(--font-family-three);
+}
+.line-numbers .line-numbers-rows {
+  padding-left: 1.5rem;
+  padding-top: var(--spacing-1);
+}
+.gatsby-highlight pre {
+  overflow: auto;
+  max-height: 70rem;
+  margin: 0;
+  background-color: var(--color-dark);
+  padding: var(--spacing-1) calc(4 * var(--spacing-2)) !important;
+}
+.gatsby-highlight[data-language]::before {
+  background: #000;
+  border-radius: 0 0 0.25rem 0.25rem;
+  color: #ffffff;
+  font-size: 12px;
+  letter-spacing: 0.025rem;
+  padding: 0.2rem 1rem;
+  position: absolute;
+  right: 3rem;
+  text-align: right;
+  text-transform: uppercase;
+  top: 0;
+  z-index: 20;
+  font-family: var(--font-family-three);
+}
+.gatsby-highlight[data-language="js"]::before,
+.gatsby-highlight[data-language="javascript"]::before {
+  content: "js";
+  background: #f7df1e;
+  color: #000;
+}
+
+.gatsby-highlight[data-language="html"]::before {
+  content: "html";
+  background: #12a069;
+  color: #ffffff;
+}
+
+.gatsby-highlight[data-language="css"]::before {
+  content: "css";
+  background: #fd03bf;
+}
