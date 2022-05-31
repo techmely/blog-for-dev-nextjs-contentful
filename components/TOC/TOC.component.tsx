@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import Style from "./Toc.module.scss";
 import { BiNotepad } from "react-icons/bi";
 import { MdClose } from "react-icons/md";
-import remark from "remark";
 import html from "remark-html";
+import { remark } from "remark";
 
 export type TOCProps = string;
 
