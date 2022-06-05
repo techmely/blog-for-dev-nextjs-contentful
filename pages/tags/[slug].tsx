@@ -10,12 +10,12 @@ import { Post } from "../../context/state";
 
 export default function CategoriesPage({
   entries,
-  category,
+  tags,
 }: {
   entries: Posts;
-  category: Tags;
+  tags: Tags;
 }) {
-  const nameTag = category.items[0].fields.name;
+  const nameTag = tags.items[0].fields.name;
   const posts = entries.items.map((post): Post => {
     const { title, url, date, description, tags } = post.fields;
     return { title, url, date, description, tags };
@@ -40,11 +40,11 @@ export default function CategoriesPage({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const entries: Tags = await client.getEntries({ content_type: "category" });
+  const entries: Tags = await client.getEntries({ content_type: "tag" });
 
-  const paths = entries.items.map((category) => {
+  const paths = entries.items.map((tag) => {
     return {
-      params: { category: category.fields.url },
+      params: { slug: tag.fields.url },
     };
   });
   return {
@@ -54,15 +54,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const category: Tags = await client.getEntries({
+  const tags: Tags = await client.getEntries({
     content_type: "tag",
-    "fields.url": params.category,
+    "fields.url": params.slug,
     limit: 1,
   });
   const entries: Posts = await client.getEntries({
-    links_to_entry: category.items[0].sys.id,
-    content_type: "posts",
+    links_to_entry: tags.items[0].sys.id,
+    content_type: "blogPost",
   });
 
-  return { props: { entries, category } };
+  return { props: { entries, tags } };
 };

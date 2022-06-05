@@ -27,7 +27,5 @@ export default function creator({ author }) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const entry = await client.getEntries({ content_type: "author", limit: 1 });
-  // console.log(entry);
-
   return { props: { author: entry } };
 };
