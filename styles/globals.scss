@@ -25,11 +25,14 @@
   --color-secondary: #e60067;
   --color-background: #eef0f1;
   --color-dark: #171e31;
+  --color-heading: #111827;
   --color-muted: #6c757d;
   --color-button-1: #1cb152;
   --color-boxShadow: #ffc4c4;
   --color-icon: #9d7d67;
-  --color-border-1: #bfbfbf;
+  --color-light-blue: #eef9fd;
+  --color-dark-blue: #4cb3d4;
+  --color-border-1: rgb(191, 191, 191);
   --color-border-2: #e3e5e7;
 
   --height-nav: 6rem;
@@ -39,6 +42,7 @@
   --sp-text-lg: 4.8rem;
   --sp-text-md: 3.2rem;
   --sp-text-sm: 1.2rem;
+  tab-size: 4;
 }
 a {
   text-decoration: none;
@@ -46,15 +50,16 @@ a {
 html {
   font-size: 62.5%;
   font-family: var(--font-family-one);
+  scroll-behavior: smooth;
 }
-body {
-  font-size: var(--font-size-md);
-  background-color: #fff;
-  font-weight: var(--font-weight-md);
-}
-html,
 body {
   width: 100%;
+  font-size: 16px;
+  line-height: 1.5;
+  background-color: #fff;
+  font-weight: normal;
 }
 
+@import "./loading";
 @import "./utilities";
+@import "./codeBlock";

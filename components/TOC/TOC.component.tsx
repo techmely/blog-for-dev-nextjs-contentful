@@ -1,51 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Style from "./Toc.module.scss";
-import { BiNotepad } from "react-icons/bi";
+import { BiListOl } from "react-icons/bi";
 import { MdClose } from "react-icons/md";
-import html from "remark-html";
-import { remark } from "remark";
+import {HeadingInfo} from "../../pages/[blog]";
+import { useScrollSpy } from "../../hooks/useScrollSpy";
 
-export type TOCProps = string;
-
-export default function TOC({ content }: { content: TOCProps }) {
+const TOC = ({ content }: { content: HeadingInfo[] }) => {
   const [isActive, setTOC] = useState(false);
-  const [tableOfContents, setTableOfContents] = useState(content);
-
-  useEffect(() => {
-    remark()
-      // .use(prism) error
-      .use(html)
-      .process(content)
-      .then((data) => {
-        setTableOfContents(data.toString());
-      });
-  }, [content]);
-
-  const handleTOC = () => {
-    setTOC(!isActive);
-  };
+  const activeId = useScrollSpy(
+    content.map(({ id }) => id),
+    { rootMargin: "0% 0% -25% 0%" }
+  );
 
   return (
     <div className={Style["toc-box"]}>
-      <button className={Style["button-table"]} onClick={handleTOC}>
-        <span>Table of contents</span>
-        <BiNotepad />
+      <button className={Style["button-table"]} onClick={() => { setTOC(!isActive) }}>
+        <span className={Style.titleOutside}>Table of contents</span>
+        <BiListOl />
       </button>
-      <div
-        className={
-          isActive
-            ? `${Style.tableWrapper} ${Style.active}`
-            : Style.tableWrapper
-        }
-      >
+
+      <div className={ isActive ? `${Style.tableWrapper} ${Style.active}` : Style.tableWrapper}>
         <div className={Style["tableOfContents"]}>
           <div className={Style["button-close"]}>
-            <MdClose onClick={handleTOC} />
+            <MdClose onClick={() => { setTOC(!isActive) }} />
           </div>
           <h3 className={Style.title}>TABLE OF CONTENTS</h3>
-          <div dangerouslySetInnerHTML={{ __html: tableOfContents }}></div>
+          <div className={Style.contentsWrapper}>
+            <ul className={Style.itemContainer}>
+              {
+                content.map(({id, text, level}) => (
+                  <a href={`#${id}`} key={id}>
+                  <li key={id} style={{ marginLeft: `${level - 2}em` }}>
+                    <span style={{ fontWeight: activeId === id ? "bold" : "normal"}}>{text}</span>
+                  </li>
+                  </a>
+                ))
+              }
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   );
 }
+
+// TODO: Confirm about memo here
+export default React.memo(TOC);
