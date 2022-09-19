@@ -7,93 +7,103 @@ import Sidebar from "../../components/Sidebar/Sidebar.component";
 import { fetchEntries, fetchEntry } from "../../contentful/utils";
 import { Posts } from "../../contentful/utils";
 import Style from "./blogPost.module.scss";
-import { Post, PostsContext } from "../../context/state";
-import html from "remark-html";
-import prism from "remark-prism";
-import { remark } from "remark";
+import {Post, PostsContext} from "../../context/state";
+import Toc from "../../components/TOC/TOC.component";
+import {Remarkable} from 'remarkable';
+import {addIDToAllMarkdownHeaders} from 'remarkable-auto-heading-links';
+import hljs from 'highlight.js';
+import useSWR from "swr";
+import {useRouter} from "next/router";
+import Loading from "../../components/Loading/Loading.component";
 
-const Blog = ({ postData }: { postData: Posts }) => {
-  const { title, video, tags, date, tableOfContents, contentPost, author } =
-    postData.items[0].fields;
+export type HeadingInfo = {
+  id: string,
+  text: string,
+  level: number
+}
 
+const Blog = () => {
+  const router = useRouter();
+  const {data, error} = useSWR(router.query.blog, fetchEntry);
+  const {title, tags, date, contentPost, author, url} = data?.items[0].fields || {};
   const posts = useContext<Post[]>(PostsContext);
+  const [content, setContent] = useState(null);
+  const [tableOfContents, setTableOfContents] = useState<HeadingInfo[]>([]);
 
-  const [content, setContent] = useState(contentPost);
+  const dateDisplay = new Date(date);
 
   useEffect(() => {
-    let data = contentPost.replace(
-      /<a href/g,
-      `<a target="_blank" class="link" href`
-    );
-
-    const imgReg = /<img.+alt="video-box">/g;
-    const videoArr = data.match(imgReg);
-    if (videoArr) {
-      videoArr.forEach((video) => {
-        const srcReg = /src=".+webm"/;
-        const src = video.match(srcReg);
-        const videoStr = `<video class="vd-content" controls><source ${src}></video>`;
-        data = data.replace(/<img.+alt="video-box">/, videoStr);
-      });
-    }
-
-    remark()
-      // .use(prism)
-      .use(html)
-      .process(data)
-      .then((data) => {
-        setContent(data.toString());
-      });
+    const test = new Remarkable({
+      highlight: function (str, lang) {
+        try {
+          if (lang && hljs.getLanguage(lang)) return hljs.highlight(lang, str).value;
+          return hljs.highlightAuto(str).value;
+        } catch (err) {
+          return '';
+        }
+      }
+    }).use(addIDToAllMarkdownHeaders);
+    setContent(test.render(contentPost));
   }, [contentPost]);
 
-  return (
-    <Layout TOC={tableOfContents}>
-      <div className={Style["content-article"]}>
-        {video && (
-          <div className={Style["video-wrapper"]}>
-            <div className={Style.content}>
-              <iframe
-                title="Watch video"
-                width="100%"
-                height="523"
-                src={`https://www.youtube.com/embed/${video}?rel=0`}
-                frameBorder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className={Style["video-iframe"]}
-              ></iframe>
-            </div>
-          </div>
-        )}
-        <div className={Style["content-article__main"]}>
-          {/* <HorizontalBanner /> */}
-          <div className={Style["content-header"]}>
-            <div className={Style["post-info"]}>
-              <div className={Style.tags}>
-                {tags?.map((tag) => (
-                  <Link key={tag.sys.id} href={`/tags/${tag.fields.url}/`}>
-                    {tag.fields.url}
-                  </Link>
-                ))}
-              </div>
-              <h1 className={Style["post-title"]}>{title}</h1>
-              <div className={Style["post-description"]}>
-                <Link href="/creator/">
-                  <a className="author">{author?.fields?.name}</a>
-                </Link>
-                <span className="datetime">{date}</span>
-              </div>
-            </div>
-          </div>
+  useEffect(() => {
+    if (!content || !data) return;
+    const contentContainer = document.getElementById("content-container");
+    if (contentContainer) {
+      const headings = Array.from(contentContainer.querySelectorAll("h1, h2, h3, h4, h5, h6"))
+        .filter((element) => element.id)
+        .map((element) => ({
+          id: element.id,
+          text: element.textContent ?? "",
+          level: Number(element.tagName.substring(1))
+        }));
 
-          <div
-            dangerouslySetInnerHTML={{
-              __html: content,
-            }}
-          />
-        </div>
-        <AuthorComponent author={author} />
-      </div>
+      // Open external links in new tab
+      let allLinks = contentContainer.querySelectorAll('a');
+      for (let i = 0; i < allLinks.length; i++){
+        let a = allLinks[i];
+        if(a.hostname != location.hostname) {
+          a.rel = 'noopener';
+          a.target = '_blank';
+        }
+      }
+      setTableOfContents(headings);
+    }
+  }, [content]);
+
+  return (
+    <Layout>
+      { !data ? <Loading/> :
+        <React.Fragment>
+          <Toc content={tableOfContents} />
+          <div className={Style["content-article"]}>
+            <div className={Style["content-article__main"]}>
+              <div className={Style["content-header"]}>
+                <div className={Style["post-info"]}>
+                  <div className={Style.tags}>
+                    {tags?.map((tag) => (
+                      <Link key={tag.sys.id} href={`/tags/${tag.fields.url}/`}>
+                        {tag.fields.url}
+                      </Link>
+                    ))}
+                  </div>
+                  <h1 className={Style["post-title"]}>{title}</h1>
+                  <div className={Style["post-description"]}>
+                    <Link href="/creator/">
+                      <a className="author">{author?.fields?.name}</a>
+                    </Link>
+                    <span className="datetime">{dateDisplay?.toLocaleString()}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div dangerouslySetInnerHTML={{ __html: content }} id={"content-container"}/>
+            </div>
+
+            <AuthorComponent author={author} />
+          </div>
+        </React.Fragment>
+      }
       <Sidebar recentPosts={posts} hideTags={true} />
     </Layout>
   );

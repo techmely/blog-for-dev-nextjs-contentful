@@ -1,6 +1,7 @@
 import AppWrapper from "../context/state";
+import 'highlight.js/styles/github.css';
+
 import "../styles/globals.scss";
-import "prismjs/themes/prism-tomorrow.css";
 
 function MyApp({ Component, pageProps }) {
   return (
